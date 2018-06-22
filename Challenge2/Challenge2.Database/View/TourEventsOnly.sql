@@ -1,2 +1,2 @@
 ﻿CREATE VIEW [dbo].[TourEventsOnly]
-	AS SELECT [eventDay], [eventMonth], [eventYear], [fee], [tourID] FROM [TourEvent]
+	AS SELECT [eventID], [eventDay], [eventMonth], [eventYear], [fee], [tourID] FROM [TourEvent]

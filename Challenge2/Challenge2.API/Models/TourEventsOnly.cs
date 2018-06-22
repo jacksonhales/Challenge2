@@ -19,5 +19,6 @@ namespace Challenge2.API.Models
         public int eventYear { get; set; }
         public decimal fee { get; set; }
         public int tourID { get; set; }
+        public int eventID { get; set; }
     }
 }

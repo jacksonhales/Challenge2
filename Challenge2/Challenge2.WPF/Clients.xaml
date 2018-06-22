@@ -1,0 +1,36 @@
+﻿<Page x:Class="Challenge2.WPF.Clients"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Challenge2.WPF"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Clients" Loaded="Page_Loaded">
+
+    <Grid>
+        <StackPanel>
+        <Label>Clients</Label>
+        <DataGrid x:Name="dgrClients" Margin="0,10,0,0" MinWidth="400" MinHeight="150" ItemsSource="{Binding clientsList}" AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="dgrClients_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*" Header="First Name" Binding="{Binding FirstName}"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Last Name" Binding="{Binding LastName}"></DataGridTextColumn>
+                <DataGridTextColumn Width="*" Header="Gender" Binding="{Binding Gender}"></DataGridTextColumn>
+                <DataGridTextColumn Visibility="Hidden" Width="*" Header="ClientID" Binding="{Binding ClientID}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+            <StackPanel Orientation="Horizontal">
+                <Label>FirstName: </Label>
+                <TextBox x:Name="txtFirstName"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label>LastName:</Label>
+                <TextBox x:Name="txtLastName"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label>Gender:</Label>
+                <TextBox x:Name="txtGender"></TextBox>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

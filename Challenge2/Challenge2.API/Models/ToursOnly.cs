@@ -12,11 +12,10 @@ namespace Challenge2.API.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class BookingOnly
+    public partial class ToursOnly
     {
-        public decimal payment { get; set; }
-        public System.DateTime dateBooked { get; set; }
-        public int clientID { get; set; }
-        public int eventID { get; set; }
+        public int tourID { get; set; }
+        public string name { get; set; }
+        public string description { get; set; }
     }
 }

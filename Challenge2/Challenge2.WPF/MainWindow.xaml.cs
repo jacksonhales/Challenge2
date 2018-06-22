@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Challenge2.WPF;
 using MahApps.Metro.Controls;
 
 namespace WpfApplication
@@ -21,6 +22,17 @@ namespace WpfApplication
         public MainWindow()
         {
             InitializeComponent();
+            frmMain.Content = new TourEvents();
+        }
+
+        private void btnTourEvents_Click(object sender, RoutedEventArgs e)
+        {
+            frmMain.Content = new TourEvents();
+        }
+
+        private void btnClients_Click(object sender, RoutedEventArgs e)
+        {
+            frmMain.Content = new Clients();
         }
     }
 }

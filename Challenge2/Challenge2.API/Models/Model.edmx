@@ -44,27 +44,31 @@
           <Property Name="tourID" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Challenge2.dbo.BookingOnly' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="BookingOnly">
+warning 6002: The table/view 'Challenge2.dbo.BookingsOnly' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="BookingsOnly">
           <Key>
+            <PropertyRef Name="bookingID" />
             <PropertyRef Name="payment" />
             <PropertyRef Name="dateBooked" />
             <PropertyRef Name="clientID" />
             <PropertyRef Name="eventID" />
           </Key>
+          <Property Name="bookingID" Type="int" Nullable="false" />
           <Property Name="payment" Type="money" Nullable="false" />
           <Property Name="dateBooked" Type="date" Nullable="false" />
           <Property Name="clientID" Type="int" Nullable="false" />
           <Property Name="eventID" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Challenge2.dbo.ClientOnly' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="ClientOnly">
+warning 6002: The table/view 'Challenge2.dbo.ClientsOnly' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ClientsOnly">
           <Key>
+            <PropertyRef Name="clientID" />
             <PropertyRef Name="firstname" />
             <PropertyRef Name="lastName" />
             <PropertyRef Name="gender" />
           </Key>
+          <Property Name="clientID" Type="int" Nullable="false" />
           <Property Name="firstname" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="lastName" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="gender" Type="char" MaxLength="1" Nullable="false" />
@@ -73,12 +77,14 @@ warning 6002: The table/view 'Challenge2.dbo.ClientOnly' does not have a primary
 warning 6002: The table/view 'Challenge2.dbo.TourEventsOnly' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TourEventsOnly">
           <Key>
+            <PropertyRef Name="eventID" />
             <PropertyRef Name="eventDay" />
             <PropertyRef Name="eventMonth" />
             <PropertyRef Name="eventYear" />
             <PropertyRef Name="fee" />
             <PropertyRef Name="tourID" />
           </Key>
+          <Property Name="eventID" Type="int" Nullable="false" />
           <Property Name="eventDay" Type="int" Nullable="false" />
           <Property Name="eventMonth" Type="char" MaxLength="3" Nullable="false" />
           <Property Name="eventYear" Type="int" Nullable="false" />
@@ -86,12 +92,14 @@ warning 6002: The table/view 'Challenge2.dbo.TourEventsOnly' does not have a pri
           <Property Name="tourID" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'Challenge2.dbo.TourOnly' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="TourOnly">
+warning 6002: The table/view 'Challenge2.dbo.ToursOnly' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ToursOnly">
           <Key>
+            <PropertyRef Name="tourID" />
             <PropertyRef Name="name" />
             <PropertyRef Name="description" />
           </Key>
+          <Property Name="tourID" Type="int" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="description" Type="varchar" MaxLength="300" Nullable="false" />
         </EntityType>
@@ -154,23 +162,26 @@ warning 6002: The table/view 'Challenge2.sys.database_firewall_rules' does not h
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tour" EntityType="Self.Tour" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TourEvent" EntityType="Self.TourEvent" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="BookingOnly" EntityType="Self.BookingOnly" store:Type="Views" store:Schema="dbo">
+          <EntitySet Name="BookingsOnly" EntityType="Self.BookingsOnly" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [BookingOnly].[payment] AS [payment], 
-    [BookingOnly].[dateBooked] AS [dateBooked], 
-    [BookingOnly].[clientID] AS [clientID], 
-    [BookingOnly].[eventID] AS [eventID]
-    FROM [dbo].[BookingOnly] AS [BookingOnly]</DefiningQuery>
+    [BookingsOnly].[bookingID] AS [bookingID], 
+    [BookingsOnly].[payment] AS [payment], 
+    [BookingsOnly].[dateBooked] AS [dateBooked], 
+    [BookingsOnly].[clientID] AS [clientID], 
+    [BookingsOnly].[eventID] AS [eventID]
+    FROM [dbo].[BookingsOnly] AS [BookingsOnly]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="ClientOnly" EntityType="Self.ClientOnly" store:Type="Views" store:Schema="dbo">
+          <EntitySet Name="ClientsOnly" EntityType="Self.ClientsOnly" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [ClientOnly].[firstname] AS [firstname], 
-    [ClientOnly].[lastName] AS [lastName], 
-    [ClientOnly].[gender] AS [gender]
-    FROM [dbo].[ClientOnly] AS [ClientOnly]</DefiningQuery>
+    [ClientsOnly].[clientID] AS [clientID], 
+    [ClientsOnly].[firstname] AS [firstname], 
+    [ClientsOnly].[lastName] AS [lastName], 
+    [ClientsOnly].[gender] AS [gender]
+    FROM [dbo].[ClientsOnly] AS [ClientsOnly]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="TourEventsOnly" EntityType="Self.TourEventsOnly" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
+    [TourEventsOnly].[eventID] AS [eventID], 
     [TourEventsOnly].[eventDay] AS [eventDay], 
     [TourEventsOnly].[eventMonth] AS [eventMonth], 
     [TourEventsOnly].[eventYear] AS [eventYear], 
@@ -178,11 +189,12 @@ warning 6002: The table/view 'Challenge2.sys.database_firewall_rules' does not h
     [TourEventsOnly].[tourID] AS [tourID]
     FROM [dbo].[TourEventsOnly] AS [TourEventsOnly]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="TourOnly" EntityType="Self.TourOnly" store:Type="Views" store:Schema="dbo">
+          <EntitySet Name="ToursOnly" EntityType="Self.ToursOnly" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [TourOnly].[name] AS [name], 
-    [TourOnly].[description] AS [description]
-    FROM [dbo].[TourOnly] AS [TourOnly]</DefiningQuery>
+    [ToursOnly].[tourID] AS [tourID], 
+    [ToursOnly].[name] AS [name], 
+    [ToursOnly].[description] AS [description]
+    FROM [dbo].[ToursOnly] AS [ToursOnly]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
             <DefiningQuery>SELECT 
@@ -308,34 +320,12 @@ warning 6002: The table/view 'Challenge2.sys.database_firewall_rules' does not h
             <End Role="Tour" EntitySet="Tours" />
             <End Role="TourEvent" EntitySet="TourEvents" />
           </AssociationSet>
-          <EntitySet Name="BookingOnlies" EntityType="Challenge2Model.BookingOnly" />
-          <EntitySet Name="ClientOnlies" EntityType="Challenge2Model.ClientOnly" />
           <EntitySet Name="TourEventsOnlies" EntityType="Challenge2Model.TourEventsOnly" />
-          <EntitySet Name="TourOnlies" EntityType="Challenge2Model.TourOnly" />
           <EntitySet Name="database_firewall_rules" EntityType="Challenge2Model.database_firewall_rules" />
+          <EntitySet Name="BookingsOnlies" EntityType="Challenge2Model.BookingsOnly" />
+          <EntitySet Name="ClientsOnlies" EntityType="Challenge2Model.ClientsOnly" />
+          <EntitySet Name="ToursOnlies" EntityType="Challenge2Model.ToursOnly" />
         </EntityContainer>
-        <EntityType Name="BookingOnly">
-          <Key>
-            <PropertyRef Name="payment" />
-            <PropertyRef Name="dateBooked" />
-            <PropertyRef Name="clientID" />
-            <PropertyRef Name="eventID" />
-          </Key>
-          <Property Name="payment" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="dateBooked" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="clientID" Type="Int32" Nullable="false" />
-          <Property Name="eventID" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ClientOnly">
-          <Key>
-            <PropertyRef Name="firstname" />
-            <PropertyRef Name="lastName" />
-            <PropertyRef Name="gender" />
-          </Key>
-          <Property Name="firstname" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="lastName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="gender" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
-        </EntityType>
         <EntityType Name="TourEventsOnly">
           <Key>
             <PropertyRef Name="eventDay" />
@@ -343,20 +333,14 @@ warning 6002: The table/view 'Challenge2.sys.database_firewall_rules' does not h
             <PropertyRef Name="eventYear" />
             <PropertyRef Name="fee" />
             <PropertyRef Name="tourID" />
+            <PropertyRef Name="eventID" />
           </Key>
           <Property Name="eventDay" Type="Int32" Nullable="false" />
           <Property Name="eventMonth" Type="String" Nullable="false" MaxLength="3" FixedLength="true" Unicode="false" />
           <Property Name="eventYear" Type="Int32" Nullable="false" />
           <Property Name="fee" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="tourID" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="TourOnly">
-          <Key>
-            <PropertyRef Name="name" />
-            <PropertyRef Name="description" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="description" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="eventID" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="database_firewall_rules">
           <Key>
@@ -373,6 +357,42 @@ warning 6002: The table/view 'Challenge2.sys.database_firewall_rules' does not h
           <Property Name="end_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="BookingsOnly">
+          <Key>
+            <PropertyRef Name="bookingID" />
+            <PropertyRef Name="payment" />
+            <PropertyRef Name="dateBooked" />
+            <PropertyRef Name="clientID" />
+            <PropertyRef Name="eventID" />
+          </Key>
+          <Property Name="bookingID" Type="Int32" Nullable="false" />
+          <Property Name="payment" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="dateBooked" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="clientID" Type="Int32" Nullable="false" />
+          <Property Name="eventID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ClientsOnly">
+          <Key>
+            <PropertyRef Name="clientID" />
+            <PropertyRef Name="firstname" />
+            <PropertyRef Name="lastName" />
+            <PropertyRef Name="gender" />
+          </Key>
+          <Property Name="clientID" Type="Int32" Nullable="false" />
+          <Property Name="firstname" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="gender" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ToursOnly">
+          <Key>
+            <PropertyRef Name="tourID" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="description" />
+          </Key>
+          <Property Name="tourID" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -422,41 +442,15 @@ warning 6002: The table/view 'Challenge2.sys.database_firewall_rules' does not h
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="BookingOnlies">
-            <EntityTypeMapping TypeName="Challenge2Model.BookingOnly">
-              <MappingFragment StoreEntitySet="BookingOnly">
-                <ScalarProperty Name="eventID" ColumnName="eventID" />
-                <ScalarProperty Name="clientID" ColumnName="clientID" />
-                <ScalarProperty Name="dateBooked" ColumnName="dateBooked" />
-                <ScalarProperty Name="payment" ColumnName="payment" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ClientOnlies">
-            <EntityTypeMapping TypeName="Challenge2Model.ClientOnly">
-              <MappingFragment StoreEntitySet="ClientOnly">
-                <ScalarProperty Name="gender" ColumnName="gender" />
-                <ScalarProperty Name="lastName" ColumnName="lastName" />
-                <ScalarProperty Name="firstname" ColumnName="firstname" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TourEventsOnlies">
             <EntityTypeMapping TypeName="Challenge2Model.TourEventsOnly">
               <MappingFragment StoreEntitySet="TourEventsOnly">
+                <ScalarProperty Name="eventID" ColumnName="eventID" />
                 <ScalarProperty Name="tourID" ColumnName="tourID" />
                 <ScalarProperty Name="fee" ColumnName="fee" />
                 <ScalarProperty Name="eventYear" ColumnName="eventYear" />
                 <ScalarProperty Name="eventMonth" ColumnName="eventMonth" />
                 <ScalarProperty Name="eventDay" ColumnName="eventDay" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TourOnlies">
-            <EntityTypeMapping TypeName="Challenge2Model.TourOnly">
-              <MappingFragment StoreEntitySet="TourOnly">
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -469,6 +463,36 @@ warning 6002: The table/view 'Challenge2.sys.database_firewall_rules' does not h
                 <ScalarProperty Name="start_ip_address" ColumnName="start_ip_address" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookingsOnlies">
+            <EntityTypeMapping TypeName="Challenge2Model.BookingsOnly">
+              <MappingFragment StoreEntitySet="BookingsOnly">
+                <ScalarProperty Name="eventID" ColumnName="eventID" />
+                <ScalarProperty Name="clientID" ColumnName="clientID" />
+                <ScalarProperty Name="dateBooked" ColumnName="dateBooked" />
+                <ScalarProperty Name="payment" ColumnName="payment" />
+                <ScalarProperty Name="bookingID" ColumnName="bookingID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientsOnlies">
+            <EntityTypeMapping TypeName="Challenge2Model.ClientsOnly">
+              <MappingFragment StoreEntitySet="ClientsOnly">
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="clientID" ColumnName="clientID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ToursOnlies">
+            <EntityTypeMapping TypeName="Challenge2Model.ToursOnly">
+              <MappingFragment StoreEntitySet="ToursOnly">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="tourID" ColumnName="tourID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

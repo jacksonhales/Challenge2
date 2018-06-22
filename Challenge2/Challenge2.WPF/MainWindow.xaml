@@ -6,6 +6,21 @@
                       Height="600"
                       Width="800">
 
-    <!-- your content -->
-
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0">
+                <Button Margin="20" x:Name="btnTourEvents" Height="50" Click="btnTourEvents_Click">Tour Events</Button>
+                <Button Margin="20" x:Name="btnClients" Height="50" Click="btnClients_Click">Clients</Button>
+            </StackPanel>
+        </Grid>
+        <Frame x:Name="frmMain" Grid.Column="1" NavigationUIVisibility="Hidden"></Frame>
+    </Grid>
 </Controls:MetroWindow>

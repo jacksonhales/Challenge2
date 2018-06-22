@@ -29,10 +29,10 @@ namespace Challenge2.API.Models
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Tour> Tours { get; set; }
         public virtual DbSet<TourEvent> TourEvents { get; set; }
-        public virtual DbSet<BookingOnly> BookingOnlies { get; set; }
-        public virtual DbSet<ClientOnly> ClientOnlies { get; set; }
         public virtual DbSet<TourEventsOnly> TourEventsOnlies { get; set; }
-        public virtual DbSet<TourOnly> TourOnlies { get; set; }
         public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
+        public virtual DbSet<BookingsOnly> BookingsOnlies { get; set; }
+        public virtual DbSet<ClientsOnly> ClientsOnlies { get; set; }
+        public virtual DbSet<ToursOnly> ToursOnlies { get; set; }
     }
 }

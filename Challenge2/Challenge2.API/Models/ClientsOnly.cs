@@ -12,9 +12,11 @@ namespace Challenge2.API.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TourOnly
+    public partial class ClientsOnly
     {
-        public string name { get; set; }
-        public string description { get; set; }
+        public int clientID { get; set; }
+        public string firstname { get; set; }
+        public string lastName { get; set; }
+        public string gender { get; set; }
     }
 }
