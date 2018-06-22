@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Challenge2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="bookingID" />
+          </Key>
+          <Property Name="bookingID" Type="int" Nullable="false" />
+          <Property Name="payment" Type="money" Nullable="false" />
+          <Property Name="dateBooked" Type="date" Nullable="false" />
+          <Property Name="clientID" Type="int" Nullable="false" />
+          <Property Name="eventID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="clientID" />
+          </Key>
+          <Property Name="clientID" Type="int" Nullable="false" />
+          <Property Name="firstName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="lastName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="gender" Type="char" MaxLength="1" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tour">
+          <Key>
+            <PropertyRef Name="tourID" />
+          </Key>
+          <Property Name="tourID" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="300" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TourEvent">
+          <Key>
+            <PropertyRef Name="eventID" />
+          </Key>
+          <Property Name="eventID" Type="int" Nullable="false" />
+          <Property Name="eventDay" Type="int" Nullable="false" />
+          <Property Name="eventMonth" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="eventYear" Type="int" Nullable="false" />
+          <Property Name="fee" Type="money" Nullable="false" />
+          <Property Name="tourID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Booking_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="clientID" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="clientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Booking_TourEvent">
+          <End Role="TourEvent" Type="Self.TourEvent" Multiplicity="1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TourEvent">
+              <PropertyRef Name="eventID" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="eventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TourEvent">
+          <End Role="Tour" Type="Self.Tour" Multiplicity="1" />
+          <End Role="TourEvent" Type="Self.TourEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tour">
+              <PropertyRef Name="tourID" />
+            </Principal>
+            <Dependent Role="TourEvent">
+              <PropertyRef Name="tourID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Challenge2ModelStoreContainer">
+          <EntitySet Name="Booking" EntityType="Self.Booking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tour" EntityType="Self.Tour" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TourEvent" EntityType="Self.TourEvent" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Booking_Client" Association="Self.FK_Booking_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Booking" EntitySet="Booking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Booking_TourEvent" Association="Self.FK_Booking_TourEvent">
+            <End Role="TourEvent" EntitySet="TourEvent" />
+            <End Role="Booking" EntitySet="Booking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TourEvent" Association="Self.FK_TourEvent">
+            <End Role="Tour" EntitySet="Tour" />
+            <End Role="TourEvent" EntitySet="TourEvent" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Challenge2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="bookingID" />
+          </Key>
+          <Property Name="bookingID" Type="Int32" Nullable="false" />
+          <Property Name="payment" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="dateBooked" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="clientID" Type="Int32" Nullable="false" />
+          <Property Name="eventID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Booking_Client" FromRole="Booking" ToRole="Client" />
+          <NavigationProperty Name="TourEvent" Relationship="Self.FK_Booking_TourEvent" FromRole="Booking" ToRole="TourEvent" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="clientID" />
+          </Key>
+          <Property Name="clientID" Type="Int32" Nullable="false" />
+          <Property Name="firstName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lastName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK_Booking_Client" FromRole="Client" ToRole="Booking" />
+        </EntityType>
+        <EntityType Name="Tour">
+          <Key>
+            <PropertyRef Name="tourID" />
+          </Key>
+          <Property Name="tourID" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="TourEvents" Relationship="Self.FK_TourEvent" FromRole="Tour" ToRole="TourEvent" />
+        </EntityType>
+        <EntityType Name="TourEvent">
+          <Key>
+            <PropertyRef Name="eventID" />
+          </Key>
+          <Property Name="eventID" Type="Int32" Nullable="false" />
+          <Property Name="eventDay" Type="Int32" Nullable="false" />
+          <Property Name="eventMonth" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="eventYear" Type="Int32" Nullable="false" />
+          <Property Name="fee" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="tourID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK_Booking_TourEvent" FromRole="TourEvent" ToRole="Booking" />
+          <NavigationProperty Name="Tour" Relationship="Self.FK_TourEvent" FromRole="TourEvent" ToRole="Tour" />
+        </EntityType>
+        <Association Name="FK_Booking_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="clientID" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="clientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Booking_TourEvent">
+          <End Role="TourEvent" Type="Self.TourEvent" Multiplicity="1" />
+          <End Role="Booking" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TourEvent">
+              <PropertyRef Name="eventID" />
+            </Principal>
+            <Dependent Role="Booking">
+              <PropertyRef Name="eventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TourEvent">
+          <End Role="Tour" Type="Self.Tour" Multiplicity="1" />
+          <End Role="TourEvent" Type="Self.TourEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tour">
+              <PropertyRef Name="tourID" />
+            </Principal>
+            <Dependent Role="TourEvent">
+              <PropertyRef Name="tourID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Challenge2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bookings" EntityType="Self.Booking" />
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="Tours" EntityType="Self.Tour" />
+          <EntitySet Name="TourEvents" EntityType="Self.TourEvent" />
+          <AssociationSet Name="FK_Booking_Client" Association="Self.FK_Booking_Client">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Booking_TourEvent" Association="Self.FK_Booking_TourEvent">
+            <End Role="TourEvent" EntitySet="TourEvents" />
+            <End Role="Booking" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TourEvent" Association="Self.FK_TourEvent">
+            <End Role="Tour" EntitySet="Tours" />
+            <End Role="TourEvent" EntitySet="TourEvents" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Challenge2ModelStoreContainer" CdmEntityContainer="Challenge2Entities">
+          <EntitySetMapping Name="Bookings">
+            <EntityTypeMapping TypeName="Challenge2Model.Booking">
+              <MappingFragment StoreEntitySet="Booking">
+                <ScalarProperty Name="bookingID" ColumnName="bookingID" />
+                <ScalarProperty Name="payment" ColumnName="payment" />
+                <ScalarProperty Name="dateBooked" ColumnName="dateBooked" />
+                <ScalarProperty Name="clientID" ColumnName="clientID" />
+                <ScalarProperty Name="eventID" ColumnName="eventID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="Challenge2Model.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="clientID" ColumnName="clientID" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tours">
+            <EntityTypeMapping TypeName="Challenge2Model.Tour">
+              <MappingFragment StoreEntitySet="Tour">
+                <ScalarProperty Name="tourID" ColumnName="tourID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TourEvents">
+            <EntityTypeMapping TypeName="Challenge2Model.TourEvent">
+              <MappingFragment StoreEntitySet="TourEvent">
+                <ScalarProperty Name="eventID" ColumnName="eventID" />
+                <ScalarProperty Name="eventDay" ColumnName="eventDay" />
+                <ScalarProperty Name="eventMonth" ColumnName="eventMonth" />
+                <ScalarProperty Name="eventYear" ColumnName="eventYear" />
+                <ScalarProperty Name="fee" ColumnName="fee" />
+                <ScalarProperty Name="tourID" ColumnName="tourID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
