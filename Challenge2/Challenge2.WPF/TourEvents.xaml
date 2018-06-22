@@ -10,7 +10,7 @@
 
     <Grid>
         <StackPanel>
-            <Label>Tour Events</Label>
+            <Label FontSize="24" FontWeight="Bold">Tour Events</Label>
             <DataGrid x:Name="dgrTourEvents" Margin="0,10,0,0" MinWidth="400" MinHeight="150" ItemsSource="{Binding tourEventsList}" AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="dgrTourEvents_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="*" Header="Tour Name" Binding="{Binding Name}"></DataGridTextColumn>
@@ -22,17 +22,11 @@
                     <DataGridTextColumn Visibility="Hidden" Width="*" Header="Event ID" Binding="{Binding EventID}"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <Label>Tour Bookings</Label>
-            <Label x:Name="lblEventID"></Label>
+            <Label FontSize="24" FontWeight="Bold">Tour Bookings</Label>
+            <Label FontSize="24" FontWeight="Bold" x:Name="lblEventID"></Label>
             <DataGrid x:Name="dgrTourEventBookings" Margin="0,10,0,0" MinWidth="400" MinHeight="150" ItemsSource="{Binding bookingsList}" AutoGenerateColumns="False" IsReadOnly="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="*" Header="First Name" Binding="{Binding FirstName}">
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="HorizontalAlignment" Value="Center" />
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
+                    <DataGridTextColumn Width="*" Header="First Name" Binding="{Binding FirstName}"></DataGridTextColumn>
                     <DataGridTextColumn Width="*" Header="Last Name" Binding="{Binding LastName}"></DataGridTextColumn>
                     <DataGridTextColumn Width="*" Header="Gender" Binding="{Binding Gender}"></DataGridTextColumn>
                     <DataGridTextColumn Width="*" Header="Date Booked" Binding="{Binding DateBooked, StringFormat=\{0:dd-MM-yyyy\}}"></DataGridTextColumn>

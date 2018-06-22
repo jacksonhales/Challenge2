@@ -10,7 +10,7 @@
 
     <Grid>
         <StackPanel>
-        <Label>Clients</Label>
+        <Label FontSize="24" FontWeight="Bold">Clients</Label>
         <DataGrid x:Name="dgrClients" Margin="0,10,0,0" MinWidth="400" MinHeight="150" ItemsSource="{Binding clientsList}" AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="dgrClients_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="First Name" Binding="{Binding FirstName}"></DataGridTextColumn>
