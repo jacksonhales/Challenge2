@@ -9,7 +9,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Challenge2.API.Scripts;
+using Challenge2.API.Models;
 
 namespace Challenge2.API.Controllers
 {

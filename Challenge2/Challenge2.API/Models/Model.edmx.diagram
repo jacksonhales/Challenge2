@@ -6,12 +6,17 @@
     <edmx:Diagrams>
       <Diagram DiagramId="5022554b88d5440788e7da30c4cac73c" Name="Diagram1">
         <EntityTypeShape EntityType="Challenge2Model.Booking" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="Challenge2Model.Client" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Challenge2Model.Client" Width="1.5" PointX="8.5" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="Challenge2Model.Tour" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Challenge2Model.TourEvent" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="Challenge2Model.FK_Booking_Client" ManuallyRouted="false" />
         <AssociationConnector Association="Challenge2Model.FK_Booking_TourEvent" ManuallyRouted="false" />
         <AssociationConnector Association="Challenge2Model.FK_TourEvent" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Challenge2Model.BookingOnly" Width="1.5" PointX="5.125" PointY="4.25" />
+        <EntityTypeShape EntityType="Challenge2Model.ClientOnly" Width="1.5" PointX="8.625" PointY="4.25" />
+        <EntityTypeShape EntityType="Challenge2Model.TourEventsOnly" Width="1.5" PointX="6.875" PointY="4.25" />
+        <EntityTypeShape EntityType="Challenge2Model.TourOnly" Width="1.5" PointX="3.375" PointY="4.25" />
+        <EntityTypeShape EntityType="Challenge2Model.database_firewall_rules" Width="1.5" PointX="1" PointY="4.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

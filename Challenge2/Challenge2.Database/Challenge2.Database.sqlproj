@@ -59,6 +59,7 @@
     <Folder Include="Properties" />
     <Folder Include="Scripts" />
     <Folder Include="Tables" />
+    <Folder Include="View" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
@@ -68,6 +69,10 @@
     <Build Include="Tables\Booking.sql" />
     <Build Include="Tables\TourEvent.sql" />
     <Build Include="Tables\Tour.sql" />
+    <Build Include="View\ClientOnly.sql" />
+    <Build Include="View\TourOnly.sql" />
+    <Build Include="View\TourEventsOnly.sql" />
+    <Build Include="View\BookingOnly.sql" />
   </ItemGroup>
   <ItemGroup>
     <SqlCmdVariable Include="LoadTestData">
