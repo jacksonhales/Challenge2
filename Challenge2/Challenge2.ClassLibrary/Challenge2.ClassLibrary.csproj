@@ -50,6 +50,7 @@
     <Compile Include="Tour.cs" />
     <Compile Include="TourEvent.cs" />
     <Compile Include="TourEventView.cs" />
+    <Compile Include="ValidationFailureException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

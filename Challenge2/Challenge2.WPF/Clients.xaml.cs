@@ -23,6 +23,7 @@ namespace Challenge2.WPF
     {
         APIClient client;
         List<Client> clientList;
+        Client selectedClient;
 
         public Clients()
         {
@@ -31,16 +32,96 @@ namespace Challenge2.WPF
 
         private void dgrClients_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            selectedClient = (Client)dgrClients.SelectedItem;
 
+            txtFirstName.Text = selectedClient.FirstName;
+            txtLastName.Text = selectedClient.LastName;
+            txtGender.Text = selectedClient.Gender;
+
+            btnCreate.IsEnabled = false;
+            btnUpdate.IsEnabled = true;
+            btnDelete.IsEnabled = true;
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            btnUpdate.IsEnabled = false;
+            btnDelete.IsEnabled = false;
+
+            await LoadClientGrid();
+        }
+
+        private async void btnCreate_Click(object sender, RoutedEventArgs e)
+        {
             client = new APIClient();
 
-            List<Client> allClients = await client.GetClients();
+            Client newClient = new Client()
+            {
+                ClientID = await client.GetNextClientID(),
+                FirstName = txtFirstName.Text,
+                LastName = txtLastName.Text,
+                Gender = txtGender.Text
+            };
 
-            dgrClients.ItemsSource = allClients;
+            await client.CreateClient(newClient);
+
+            txtFirstName.Text = null;
+            txtLastName.Text = null;
+            txtGender.Text = null;
+
+            LoadClientGrid();
+        }
+
+        private async void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            client = new APIClient();
+
+            Client updatedClient = new Client()
+            {
+                ClientID = selectedClient.ClientID,
+                FirstName = txtFirstName.Text,
+                LastName = txtLastName.Text,
+                Gender = txtGender.Text
+            };
+
+            await client.UpdateClient(updatedClient);
+
+            txtFirstName.Text = null;
+            txtLastName.Text = null;
+            txtGender.Text = null;
+
+            LoadClientGrid();
+        }
+
+        private async void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            client = new APIClient();
+
+
+            await client.DeleteClientBookings(selectedClient.ClientID);
+            await client.DeleteClient(selectedClient);
+
+            txtFirstName.Text = null;
+            txtLastName.Text = null;
+            txtGender.Text = null;
+
+            LoadClientGrid();
+
+        }
+
+        private async Task LoadClientGrid()
+        {
+            
+            client = new APIClient();
+
+            clientList = await client.GetClients();
+            dgrClients.ItemsSource = clientList;
+            
+        }
+
+        private void btnRefreshGrid_Click(object sender, RoutedEventArgs e)
+        {
+            dgrClients.Items.Refresh();
         }
     }
 }

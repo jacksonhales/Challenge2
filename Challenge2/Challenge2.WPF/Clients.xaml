@@ -11,7 +11,7 @@
     <Grid>
         <StackPanel>
         <Label FontSize="24" FontWeight="Bold">Clients</Label>
-        <DataGrid x:Name="dgrClients" Margin="0,10,0,0" MinWidth="400" MinHeight="150" ItemsSource="{Binding clientsList}" AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="dgrClients_SelectionChanged">
+            <DataGrid x:Name="dgrClients" Margin="0,10,0,0" MinWidth="400" MinHeight="150" ItemsSource="{Binding clientList}" AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="dgrClients_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="*" Header="First Name" Binding="{Binding FirstName}"></DataGridTextColumn>
                 <DataGridTextColumn Width="*" Header="Last Name" Binding="{Binding LastName}"></DataGridTextColumn>
@@ -19,17 +19,17 @@
                 <DataGridTextColumn Visibility="Hidden" Width="*" Header="ClientID" Binding="{Binding ClientID}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-            <StackPanel Orientation="Horizontal">
-                <Label>FirstName: </Label>
+                <Label>First Name</Label>
                 <TextBox x:Name="txtFirstName"></TextBox>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label>LastName:</Label>
+                <Label>Last Name</Label>
                 <TextBox x:Name="txtLastName"></TextBox>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label>Gender:</Label>
+                <Label>Gender ('M' or 'F')</Label>
                 <TextBox x:Name="txtGender"></TextBox>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="btnCreate" Margin="10" MinWidth="100" Click="btnCreate_Click">Create</Button>
+                <Button x:Name="btnUpdate" Margin="10" MinWidth="100" Click="btnUpdate_Click">Update</Button>
+                <Button x:Name="btnDelete" Margin="10" MinWidth="100" Click="btnDelete_Click">Delete</Button>
+                <Button x:Name="btnRefreshGrid" Margin="10" MinWidth="100" Click="btnRefreshGrid_Click">Refresh Grid</Button>
             </StackPanel>
         </StackPanel>
     </Grid>
