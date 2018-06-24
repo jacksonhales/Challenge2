@@ -6,7 +6,19 @@ using System.Threading.Tasks;
 
 namespace Challenge2.ClassLibrary
 {
-    class ValidationFailureException
+    public class ValidationFailureException:Exception
     {
+
+        public ValidationFailureException(string message) : base(message)
+        {
+
+        }
+
+        public ValidationFailureException(string message, Exception innerException) : base(message, innerException)
+        {
+
+        }
+
+
     }
 }

@@ -19,10 +19,14 @@ namespace WpfApplication
 {
     public partial class MainWindow : MetroWindow
     {
+
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         public MainWindow()
         {
             InitializeComponent();
             frmMain.Content = new TourEvents();
+            logger.Trace("Application Launched");
         }
 
         private void btnTourEvents_Click(object sender, RoutedEventArgs e)
@@ -33,6 +37,11 @@ namespace WpfApplication
         private void btnClients_Click(object sender, RoutedEventArgs e)
         {
             frmMain.Content = new Clients();
+        }
+
+        private void MetroWindow_Closed(object sender, EventArgs e)
+        {
+            logger.Trace("Application Closed");
         }
     }
 }

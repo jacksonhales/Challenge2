@@ -29,7 +29,6 @@
                 <Button x:Name="btnCreate" Margin="10" MinWidth="100" Click="btnCreate_Click">Create</Button>
                 <Button x:Name="btnUpdate" Margin="10" MinWidth="100" Click="btnUpdate_Click">Update</Button>
                 <Button x:Name="btnDelete" Margin="10" MinWidth="100" Click="btnDelete_Click">Delete</Button>
-                <Button x:Name="btnRefreshGrid" Margin="10" MinWidth="100" Click="btnRefreshGrid_Click">Refresh Grid</Button>
             </StackPanel>
         </StackPanel>
     </Grid>

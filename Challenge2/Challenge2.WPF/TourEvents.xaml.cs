@@ -24,7 +24,15 @@ namespace Challenge2.WPF
     {
 
         APIClient client;
+        List<Tour> allTours;
+        List<TourEvent> allTourEvents;
         List<TourEventView> tourEventsView;
+        List<Client> allClients;
+        List<Booking> allBookings;
+        TourEventView selectedTourEventView;
+
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         public TourEvents()
         {
             InitializeComponent();
@@ -33,50 +41,65 @@ namespace Challenge2.WPF
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            client = new APIClient();
+            try
+            {
+                client = new APIClient();
 
-            List<Tour> allTours = await client.GetTours();
-            List<TourEvent> allTourEvents = await client.GetTourEvents();
+                allTours = await client.GetTours();
+                allTourEvents = await client.GetTourEvents();
+                allClients = await client.GetClients();
+                allBookings = await client.GetBookings();
 
-            tourEventsView = (from t in allTours
-                                 join te in allTourEvents
-                                 on t.TourID equals te.TourID
-                                 select new TourEventView
-                                 {
-                                     Name = t.Name,
-                                     Description = t.Description,
-                                     EventDay = te.EventDay,
-                                     EventMonth = te.EventMonth,
-                                     EventYear = te.EventYear,
-                                     Fee = te.Fee,
-                                     EventID = te.EventID
-                                 }).ToList();
+                tourEventsView = (from t in allTours
+                                  join te in allTourEvents
+                                  on t.TourID equals te.TourID
+                                  select new TourEventView
+                                  {
+                                      Name = t.Name,
+                                      Description = t.Description,
+                                      EventDay = te.EventDay,
+                                      EventMonth = te.EventMonth,
+                                      EventYear = te.EventYear,
+                                      Fee = te.Fee,
+                                      EventID = te.EventID
+                                  }).ToList();
 
-            dgrTourEvents.ItemsSource = tourEventsView;
+                dgrTourEvents.ItemsSource = tourEventsView;
+            }
+            catch (Exception ex)
+            {
+                logger.Fatal("Unknown error.");
+                MessageBox.Show(ex.Message);
+            }
         }
 
-        private async void dgrTourEvents_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void dgrTourEvents_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            try
+            {
+                if(dgrTourEvents.SelectedItem != null)
+                {
+                    selectedTourEventView = (TourEventView)dgrTourEvents.SelectedItem;
+                }
 
-            TourEventView selectedTourEventView = (TourEventView)dgrTourEvents.SelectedItem;
-
-            client = new APIClient();
-
-            List<Client> allClients = await client.GetClients();
-            List<Booking> allBookings = await client.GetBookings();
-
-            var bookingsList = from c in allClients
-                               join b in allBookings on c.ClientID equals b.ClientID
-                               where b.EventID == selectedTourEventView.EventID
-                               select new
-                               {
-                                   c.FirstName,
-                                   c.LastName,
-                                   c.Gender,
-                                   b.DateBooked,
-                                   b.Payment
-                               };
-            dgrTourEventBookings.ItemsSource = bookingsList;
+                var bookingsList = from c in allClients
+                                   join b in allBookings on c.ClientID equals b.ClientID
+                                   where b.EventID == selectedTourEventView.EventID
+                                   select new
+                                   {
+                                       c.FirstName,
+                                       c.LastName,
+                                       c.Gender,
+                                       b.DateBooked,
+                                       b.Payment
+                                   };
+                dgrTourEventBookings.ItemsSource = bookingsList;
+            }
+            catch (Exception ex)
+            {
+                logger.Fatal("Unknown error.");
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
